@@ -1,22 +1,23 @@
-X = 0
-Y = 0
-
-function love.draw()
-    if(love.keyboard.isDown("w")) then
-        Y = Y - 1
-    end
-    if(love.keyboard.isDown('a')) then
-        X = X - 1
-    end
-    if(love.keyboard.isDown('s')) then
-        Y = Y + 1
-    end
-    if(love.keyboard.isDown('d')) then
-        X = X + 1
-    end
-
-    local quad = love.graphics.newQuad(Y, Y, 10, 10, 10, 10)
-    local quadTexture = love.graphics.newImage("res/white.png")
-
-    love.graphics.draw(quadTexture, quad, X, Y)
+-- load the objects
+function love.load()
+  -- importing the reqired library and objects
+  Object = require "lib/classic"
+  require "entities/box"
+  
+  -- initialize the box object
+  box = Box(100, 100, 100, 100, 150, love.graphics.newImage("res/white.png"))
 end
+
+-- update the simulation
+function love.update(dt)
+  -- updating the box object
+  box:update(dt)
+end
+
+-- draw to the screen
+function love.draw()
+  -- drawing the box texture
+  box:draw()
+end
+
+io.stdout:setvbuf("no")
