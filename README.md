@@ -1,3 +1,3 @@
 # WheelSim
 
-As name the suggest. It's a simple wheel simulator.
+As name the suggests. It's a simple wheel simulator.
