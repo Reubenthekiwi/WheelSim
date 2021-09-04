@@ -1,43 +1,29 @@
---[[ !!!!!!!!!!!!!!!!!
-  Why are we using a quad if we can just use the love.graphics.rectangle() function?
-]]--
+local p = love.physics
+local g = love.graphics
 
 -- importing the classic.lua library
-Object = require "../lib/classic"
+local Object = require "../lib/classic"
 
 -- initializing the Box class
-Box = Object:extend(Object)
+local Box = Object:extend()
 
 -- creating the Box constructor
-function Box:new(x, y, width, height, speed, texture)
-  self.x = x or 0
-  self.y = y or 0
-  self.width = width or 0
-  self.height = height or 0
-  self.speed = speed
-  
-  self.quad = love.graphics.newQuad(self.x, self.y, self.width, self.height, 10, 10)
-  self.texture = texture
+function Box:new(world, x, y, bodyType, width, height, angle)
+  self.body = p.newBody(world, x + width/2, y + height/2, bodyType)
+  self.body:setAngle(angle or 0)
+  self.shape = p.newRectangleShape(width, height)
+  self.fixture = p.newFixture(self.body, self.shape)
 end
 
 -- the Box update() function
 function Box:update(dt)
-  -- processing user input to move the box
-  if(love.keyboard.isDown("w")) then
-        self.y = self.y - self.speed * dt
-  end
-  if(love.keyboard.isDown('s')) then
-      self.y = self.y + self.speed * dt
-  end
-  if(love.keyboard.isDown('a')) then
-      self.x = self.x - self.speed * dt
-  end
-  if(love.keyboard.isDown('d')) then
-      self.x = self.x + self.speed * dt
-  end
+  -- nothing here currently
 end
 
 -- and the draw() function
 function Box:draw()
-  love.graphics.draw(self.texture, self.quad, self.x, self.y)
+  g.setColor(100/255, 175/255, 145/255)
+  g.polygon("fill", self.body:getWorldPoints(self.shape:getPoints()))
 end
+
+return Box
