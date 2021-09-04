@@ -1,7 +1,7 @@
 -- to make things easier
-p = love.physics
-g = love.graphics
-k = love.keyboard
+local p = love.physics
+local g = love.graphics
+local k = love.keyboard
 
 -- load the objects
 function love.load()
